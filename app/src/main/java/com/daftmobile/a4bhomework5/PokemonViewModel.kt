@@ -23,7 +23,7 @@ class PokemonViewModel: ViewModel() {
         pokemonDataSource.fetch(
             pokedexIndex,
             {
-                errorLiveData.value = it
+                pokemonLiveData.value = it
             }, {
                 errorLiveData.value = it
             }

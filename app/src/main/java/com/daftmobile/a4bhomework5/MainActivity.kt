@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showPokemonActivity(pokemon: PokemonItem?) {
         if (pokemon == null) return
-        TODO("Open new activity with data")
+        showError(pokemon.name)
     }
 
     private fun showError(message: String?) {

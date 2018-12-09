@@ -24,7 +24,7 @@ class PokemonFetcher: PokemonDataSource {
 
     private val pokemonApi = retrofit.create(PokemonAPI::class.java)
 
-    override fun fetch(pokedexIndex: String, onSuccess: (String) -> Unit, onError: (String) -> Unit) {
+    override fun fetch(pokedexIndex: String, onSuccess: (PokemonItem) -> Unit, onError: (String) -> Unit) {
         val call = pokemonApi.peekPokemonInfo(pokedexIndex)
 
         call.enqueue(object : Callback<PokemonItem> {
@@ -34,7 +34,13 @@ class PokemonFetcher: PokemonDataSource {
 
             override fun onResponse(call: Call<PokemonItem>, response: Response<PokemonItem>) {
                 if (response.isSuccessful) {
-                    onSuccess(response.body()?.name ?: "Weird empty response")
+                    val pokemonItem = response.body()
+                    if (pokemonItem == null) {
+                        onError("Pusta odpowiedz")
+                    } else {
+                        onSuccess(pokemonItem)
+                    }
+
                 } else {
                     onError("Serwer zwrocil: ${response.code()}")
                 }
