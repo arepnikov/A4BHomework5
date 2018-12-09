@@ -4,9 +4,10 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 
 /**
- * Created by Konrad Kowalewski.
+ * Created by Konrad Kowalewski. Edited by Alexander Repnikov.
  */
 class PokemonViewModel: ViewModel() {
+    private val pokemonDataSource: PokemonDataSource = PokemonFetcher()
 
     private val pokemonLiveData = SingleLiveEvent<PokemonItem>()
     private val errorLiveData = SingleLiveEvent<String>()
@@ -14,7 +15,19 @@ class PokemonViewModel: ViewModel() {
     fun newPokemon(): LiveData<PokemonItem> = pokemonLiveData
     fun error(): LiveData<String> = errorLiveData
 
-    fun showPokemonInfo(index: String) {
-        TODO("Fetch pokemon data")
+    fun showPokemonInfo(pokedexIndex: String) {
+        fetchDataFromApi(pokedexIndex)
     }
+
+    private fun fetchDataFromApi(pokedexIndex: String) {
+        pokemonDataSource.fetch(
+            pokedexIndex,
+            {
+                errorLiveData.value = it
+            }, {
+                errorLiveData.value = it
+            }
+        )
+    }
+
 }
