@@ -1,8 +1,6 @@
 package com.daftmobile.a4bhomework5
 
-import android.provider.Settings
 import okhttp3.OkHttpClient
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,8 +17,6 @@ class PokemonFetcher: PokemonDataSource {
             .baseUrl("https://switter.app.daftmobile.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-
-    // trzeba stworzyć drugi plik JokeApi, taki, w którym metody zwracają Call<Joke>
 
     private val pokemonApi = retrofit.create(PokemonAPI::class.java)
 

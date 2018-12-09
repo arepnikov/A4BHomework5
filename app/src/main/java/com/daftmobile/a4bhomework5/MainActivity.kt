@@ -2,6 +2,7 @@ package com.daftmobile.a4bhomework5
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
@@ -24,7 +25,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun showPokemonActivity(pokemon: PokemonItem?) {
         if (pokemon == null) return
-        showError(pokemon.name)
+
+        val intent = Intent(this, PokemonActivity::class.java)
+        intent.putExtra("pokemon", pokemon)
+        startActivity(intent)
     }
 
     private fun showError(message: String?) {
