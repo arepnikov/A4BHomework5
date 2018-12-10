@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         if (pokemon == null) return
 
         val intent = Intent(this, PokemonActivity::class.java)
-        intent.putExtra("pokemon", pokemon)
+        intent.putExtra(getString(R.string.intent_pokemon_key), pokemon)
         startActivity(intent)
     }
 
